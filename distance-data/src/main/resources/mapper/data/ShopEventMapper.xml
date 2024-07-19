@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruoyi.data.mapper.ShopEventMapper">
+
+    <resultMap type="com.ruoyi.data.entity.dos.ShopEvent" id="ShopEventResult">
+        <result property="id"    column="id"    />
+        <result property="eventLogo"    column="event_logo"    />
+        <result property="shopId"    column="shop_id"    />
+        <result property="shopName"    column="shop_name"    />
+        <result property="eventName"    column="event_name"    />
+        <result property="description"    column="description"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="endDate"    column="end_date"    />
+        <result property="isDiscount"    column="is_discount"    />
+        <result property="discountRate"    column="discount_rate"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="amount"    column="amount"    />
+        <result property="activityNum"    column="activity_num"    />
+        <result property="pageView"    column="page_view"    />
+        <result property="likes"    column="likes"    />
+    </resultMap>
+
+    <sql id="selectShopEventVo">
+        select id, event_logo, shop_id, shop_name, event_name, description, start_date, end_date, is_discount, discount_rate, remark, create_time, create_by, update_by, update_time, amount, activity_num, page_view, likes from shop_event
+    </sql>
+
+    <select id="selectShopEventList" parameterType="com.ruoyi.data.entity.dos.ShopEvent" resultMap="ShopEventResult">
+        <include refid="selectShopEventVo"/>
+        <where>
+            <if test="eventLogo != null  and eventLogo != ''"> and event_logo = #{eventLogo}</if>
+            <if test="shopId != null "> and shop_id = #{shopId}</if>
+            <if test="shopName != null  and shopName != ''"> and shop_name like concat('%', #{shopName}, '%')</if>
+            <if test="eventName != null  and eventName != ''"> and event_name like concat('%', #{eventName}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="startDate != null "> and start_date = #{startDate}</if>
+            <if test="endDate != null "> and end_date = #{endDate}</if>
+            <if test="isDiscount != null "> and is_discount = #{isDiscount}</if>
+            <if test="discountRate != null "> and discount_rate = #{discountRate}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="amount != null  and amount != ''"> and amount = #{amount}</if>
+            <if test="activityNum != null "> and activity_num = #{activityNum}</if>
+            <if test="pageView != null "> and page_view = #{pageView}</if>
+            <if test="likes != null "> and likes = #{likes}</if>
+        </where>
+    </select>
+
+    <select id="selectShopEventById" parameterType="Long" resultMap="ShopEventResult">
+        <include refid="selectShopEventVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertShopEvent" parameterType="com.ruoyi.data.entity.dos.ShopEvent" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_event
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="eventLogo != null">event_logo,</if>
+            <if test="shopId != null">shop_id,</if>
+            <if test="shopName != null">shop_name,</if>
+            <if test="eventName != null">event_name,</if>
+            <if test="description != null">description,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            <if test="isDiscount != null">is_discount,</if>
+            <if test="discountRate != null">discount_rate,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="amount != null">amount,</if>
+            <if test="activityNum != null">activity_num,</if>
+            <if test="pageView != null">page_view,</if>
+            <if test="likes != null">likes,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="eventLogo != null">#{eventLogo},</if>
+            <if test="shopId != null">#{shopId},</if>
+            <if test="shopName != null">#{shopName},</if>
+            <if test="eventName != null">#{eventName},</if>
+            <if test="description != null">#{description},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="endDate != null">#{endDate},</if>
+            <if test="isDiscount != null">#{isDiscount},</if>
+            <if test="discountRate != null">#{discountRate},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="activityNum != null">#{activityNum},</if>
+            <if test="pageView != null">#{pageView},</if>
+            <if test="likes != null">#{likes},</if>
+        </trim>
+    </insert>
+
+    <update id="updateShopEvent" parameterType="com.ruoyi.data.entity.dos.ShopEvent">
+        update shop_event
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="eventLogo != null">event_logo = #{eventLogo},</if>
+            <if test="shopId != null">shop_id = #{shopId},</if>
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="eventName != null">event_name = #{eventName},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="isDiscount != null">is_discount = #{isDiscount},</if>
+            <if test="discountRate != null">discount_rate = #{discountRate},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="activityNum != null">activity_num = #{activityNum},</if>
+            <if test="pageView != null">page_view = #{pageView},</if>
+            <if test="likes != null">likes = #{likes},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShopEventById" parameterType="Long">
+        delete from shop_event where id = #{id}
+    </delete>
+
+    <delete id="deleteShopEventByIds" parameterType="String">
+        delete from shop_event where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

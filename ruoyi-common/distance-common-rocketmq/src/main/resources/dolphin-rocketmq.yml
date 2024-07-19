@@ -1,0 +1,55 @@
+#YAML文件(.yml)中的键(key)通过变量引用来设置
+#https://blog.csdn.net/qq_39361915/article/details/118754661
+#一个Topic类型的消息可以被多个消费者组同时消费，而且这些消费者组可以是完全不同的
+#消费者组只能消费一个Topic的消息，不能同时消费多个Topic消息
+#一个消费者组中的消费者必须订阅完全相同的Topic
+distance:
+  data:
+     rocketmq:
+       sms-output: &sms-output sms-output   #消息生产通道
+       sms-input: &sms-input sms-input   #消息消费通道
+       sms-topic: &sms-topic sms-topic  #消息主题
+       sms-group: &sms-group sms-group  #消费群组
+       sms-binder-group: &sms-binder-group sms-binder-group  #生产群组
+       order-output: &order-output order-output   #订单生产通道
+       order-input: &order-input order-input   #订单消费通道
+       order-topic: &order-topic order-topic  #消息主题
+       order-group: &order-group order-group  #消费群组
+       order-binder-group: &order-binder-group order-binder-group  #生产群组
+spring:
+  # 参考信息:https://www.jianshu.com/p/7f8fd90564ca
+  cloud:
+    stream:
+      bindings:
+        *sms-output:
+          destination: *sms-topic  #目标主题
+          content-type: application/json
+        *order-output:
+          destination: *order-topic
+          content-type: application/json
+        *sms-input:
+          destination: *sms-topic
+          content-type: text/plain
+          group: *sms-group
+        *order-input:
+          destination: *order-topic
+          content-type: text/plain
+          group: *order-group
+      rocketmq:
+        binder:
+            name-server: 192.168.121.201:9876
+        bindings:
+          *sms-output:
+            producer:
+              group: *sms-binder-group
+              sync: true
+          *order-output:
+            producer:
+              group: *order-binder-group
+              transactional: true
+          *sms-input:
+            consumer:
+              orderly: true
+          *order-input:
+            consumer:
+              orderly: true

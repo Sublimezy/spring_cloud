@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.data.mapper.TrafficMapper">
+
+    <resultMap type="com.ruoyi.data.entity.dos.Traffic" id="TrafficResult">
+        <result property="id"    column="id"    />
+        <result property="mode"    column="mode"    />
+        <result property="route"    column="route"    />
+        <result property="price"    column="price"    />
+        <result property="departureTime"    column="departure_time"    />
+        <result property="arrivalTime"    column="arrival_time"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userImages"    column="user_images"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectTrafficVo">
+        select id, mode, route, price, departure_time, arrival_time, created_at, updated_at, user_id, user_name, user_images, create_by, create_time, update_by, update_time, remark from traffic
+    </sql>
+
+    <select id="selectTrafficList" parameterType="com.ruoyi.data.entity.dos.Traffic" resultMap="TrafficResult">
+        <include refid="selectTrafficVo"/>
+        <where>
+            <if test="mode != null  and mode != ''"> and mode = #{mode}</if>
+            <if test="route != null  and route != ''"> and route = #{route}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="departureTime != null "> and departure_time = #{departureTime}</if>
+            <if test="arrivalTime != null "> and arrival_time = #{arrivalTime}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="userImages != null  and userImages != ''"> and user_images = #{userImages}</if>
+        </where>
+    </select>
+
+    <select id="selectTrafficById" parameterType="Long" resultMap="TrafficResult">
+        <include refid="selectTrafficVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTraffic" parameterType="com.ruoyi.data.entity.dos.Traffic" useGeneratedKeys="true" keyProperty="id">
+        insert into traffic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mode != null and mode != ''">mode,</if>
+            <if test="route != null">route,</if>
+            <if test="price != null">price,</if>
+            <if test="departureTime != null">departure_time,</if>
+            <if test="arrivalTime != null">arrival_time,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="userImages != null">user_images,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mode != null and mode != ''">#{mode},</if>
+            <if test="route != null">#{route},</if>
+            <if test="price != null">#{price},</if>
+            <if test="departureTime != null">#{departureTime},</if>
+            <if test="arrivalTime != null">#{arrivalTime},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="userImages != null">#{userImages},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTraffic" parameterType="com.ruoyi.data.entity.dos.Traffic">
+        update traffic
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="mode != null and mode != ''">mode = #{mode},</if>
+            <if test="route != null">route = #{route},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="departureTime != null">departure_time = #{departureTime},</if>
+            <if test="arrivalTime != null">arrival_time = #{arrivalTime},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userImages != null">user_images = #{userImages},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTrafficById" parameterType="Long">
+        delete from traffic where id = #{id}
+    </delete>
+
+    <delete id="deleteTrafficByIds" parameterType="String">
+        delete from traffic where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

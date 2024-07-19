@@ -1,0 +1,5 @@
+com.ruoyi.system.api.factory.RemoteUserFallbackFactory
+com.ruoyi.system.api.factory.RemoteLogFallbackFactory
+com.ruoyi.system.api.factory.RemoteFileFallbackFactory
+com.ruoyi.distance.api.factory.RemoteAppUserFallbackFactory
+com.ruoyi.distance.api.factory.RemoteDataFallbackFactory

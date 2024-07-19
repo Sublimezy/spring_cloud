@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.data.mapper.ShopMapper">
+
+    <resultMap type="com.ruoyi.data.entity.dos.Shop" id="ShopResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="name"    column="name"    />
+        <result property="type"    column="type"    />
+        <result property="images"    column="images"    />
+        <result property="area"    column="area"    />
+        <result property="address"    column="address"    />
+        <result property="x"    column="x"    />
+        <result property="y"    column="y"    />
+        <result property="avgPrice"    column="avg_price"    />
+        <result property="sold"    column="sold"    />
+        <result property="comments"    column="comments"    />
+        <result property="score"    column="score"    />
+        <result property="openHours"    column="open_hours"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectShopVo">
+        select id, user_id, user_name, name, type, images, area, address, x, y, avg_price, sold, comments, score, open_hours, create_by, create_time, update_by, update_time, remark from shop
+    </sql>
+
+    <select id="selectShopList" parameterType="com.ruoyi.data.entity.dos.Shop" resultMap="ShopResult">
+        <include refid="selectShopVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="images != null  and images != ''"> and images = #{images}</if>
+            <if test="area != null  and area != ''"> and area = #{area}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="x != null  and x != ''"> and x = #{x}</if>
+            <if test="y != null  and y != ''"> and y = #{y}</if>
+            <if test="avgPrice != null  and avgPrice != ''"> and avg_price = #{avgPrice}</if>
+            <if test="sold != null "> and sold = #{sold}</if>
+            <if test="comments != null "> and comments = #{comments}</if>
+            <if test="score != null "> and score = #{score}</if>
+            <if test="openHours != null  and openHours != ''"> and open_hours = #{openHours}</if>
+        </where>
+    </select>
+
+    <select id="selectShopById" parameterType="String" resultMap="ShopResult">
+        <include refid="selectShopVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertShop" parameterType="com.ruoyi.data.entity.dos.Shop" useGeneratedKeys="true" keyProperty="id">
+        insert into shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="name != null">name,</if>
+            <if test="type != null">type,</if>
+            <if test="images != null">images,</if>
+            <if test="area != null">area,</if>
+            <if test="address != null">address,</if>
+            <if test="x != null">x,</if>
+            <if test="y != null">y,</if>
+            <if test="avgPrice != null">avg_price,</if>
+            <if test="sold != null">sold,</if>
+            <if test="comments != null">comments,</if>
+            <if test="score != null">score,</if>
+            <if test="openHours != null">open_hours,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="images != null">#{images},</if>
+            <if test="area != null">#{area},</if>
+            <if test="address != null">#{address},</if>
+            <if test="x != null">#{x},</if>
+            <if test="y != null">#{y},</if>
+            <if test="avgPrice != null">#{avgPrice},</if>
+            <if test="sold != null">#{sold},</if>
+            <if test="comments != null">#{comments},</if>
+            <if test="score != null">#{score},</if>
+            <if test="openHours != null">#{openHours},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateShop" parameterType="com.ruoyi.data.entity.dos.Shop">
+        update shop
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="images != null">images = #{images},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="x != null">x = #{x},</if>
+            <if test="y != null">y = #{y},</if>
+            <if test="avgPrice != null">avg_price = #{avgPrice},</if>
+            <if test="sold != null">sold = #{sold},</if>
+            <if test="comments != null">comments = #{comments},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="openHours != null">open_hours = #{openHours},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShopById" parameterType="String">
+        delete from shop where id = #{id}
+    </delete>
+
+    <delete id="deleteShopByIds" parameterType="String">
+        delete from shop where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
